@@ -1,0 +1,5 @@
+bleak
+matplotlib
+numpy
+scipy
+pyserial
