@@ -236,7 +236,7 @@ https://doi.org/10.1016/j.bspc.2019.101834
 
 ## Contributors
 
-Built at **BERT Lab, IIT Jodhpur** as part of B.Tech research internship.
+Built at **BIRD Robotics Lab, IIT Jodhpur** as part of B.Tech research internship.
 
 ---
 
