@@ -56,7 +56,13 @@ FILES_FORMAT_A = {
     "data8.csv":8,
     "data10.csv":10,
     "data11.csv":11,
-    "data12.csv":12
+    "data12.csv":12,
+    # "rishita_data1.csv":13,
+    # "saipriya_data1.csv":14,
+    # "rishita_data2.csv":15,
+    # "rishita_data3.csv":16,
+    # "rishita_data5.csv":17,
+    # "rishita_data6.csv":18
 }
 
 # FORMAT B config:
@@ -205,7 +211,7 @@ GESTURE_BOUNDARIES = {
      (86,  144),   # Gesture 2
      (170,  230),   # Gesture 3
      (258,  320),   # Gesture 4
-     (245,  402),   # Gesture 5
+     (345,  402),   # Gesture 5
      (429,  490),   # Gesture 6
      ],
      12: [
@@ -216,6 +222,56 @@ GESTURE_BOUNDARIES = {
      (288,  346),   # Gesture 5
      (374,  432),   # Gesture 6
      ],
+#      13: [
+#          (0,62),
+#          (88,149),
+#          (179,240),
+#          (270,330),
+#          (355,414),
+#          (445,505),
+
+#      ],
+#      14:[
+#          (0,63),
+#          (90,149),
+#          (170,230),
+#          (251,306),
+#          (330,395),
+#          (416,478),
+#      ],
+#      15:[
+#         (0,60),
+#         (83,120),
+#         (191,205),
+#         (264,327),
+#         (348,411),
+#         (436,501),
+#      ],
+#      16:[
+#          (0,62),
+#          (86,120),
+#          (174,205),
+#          (262,322),
+#          (355,405),
+#          (435,497)
+#      ],
+#      17:[
+#          (0,60),
+#           (90,120),
+#           (180,205),
+#           (270,330),
+#           (360,420),
+#           (449,505)
+#              ],
+#     18:[
+#         (0,60),
+#         (90,120),
+#         (180,205),
+#         (270,330),
+#         (360,420),
+#         (450,505)
+#     ]
+
 }
 
 # ╚══════════════════════════════════════════════════════╝
@@ -230,7 +286,8 @@ CHANNELS      = ['Channel1','Channel2','Channel3',
                 #   'Channel5','Channel6'
 GESTURE_NAMES = {
     1:'thumb_flexion', 2:'index_flexion',  3:'middle_flexion',
-    4:'ring_flexion',  5:'little_flexion', 6:'hand_closed'
+     4:'ring_flexion',  5:'little_flexion' 
+    #  6:'hand_closed'
 }
 os.makedirs('events',  exist_ok=True)
 os.makedirs('outputs', exist_ok=True)
@@ -287,7 +344,6 @@ def detect_events(sig, t_start, t_end, gesture_id):
         for i in range(0, len(seg)-win, step)
     ])
     t_loc = np.arange(len(rms)) * 0.05
-
     thresh = max(np.mean(rms) + 1.5*np.std(rms),0.002)
     active = rms > thresh
     active = binary_closing(active, structure=np.ones(12))
@@ -340,10 +396,41 @@ def extract_features(event_data, channels):
         # WL
         feats[f'WL_ch{ch_num}']   = np.sum(np.abs(np.diff(x)))
 
+
+        # ZC — Zero Crossings
+        # feats[f'ZC_ch{ch_num}'] = int(
+        #     np.sum(np.diff(np.sign(x)) != 0))
+
+        # # SSC — Slope Sign Changes
+        # feats[f'SSC_ch{ch_num}'] = int(np.sum(
+        #     ((x[1:-1] - x[:-2]) * (x[1:-1] - x[2:])) > 0))
+
+        # # RMS — Root Mean Square
+        # feats[f'RMS_ch{ch_num}'] = float(
+        #     np.sqrt(np.mean(x**2)))
+
+        # # DASDV — Difference Absolute Standard Deviation
+        # feats[f'DASDV_ch{ch_num}'] = float(
+        #     np.sqrt(np.mean(np.diff(x)**2)))
+        
+
+
+
+
         # PSD for MDF + MNF
         freqs, psd = signal.welch(x, fs=SR, nperseg=256)
         band = (freqs >= 20) & (freqs <= 450)
         fb, pb = freqs[band], psd[band]
+
+
+
+        if len(fb) == 0 or np.sum(pb) == 0:
+            feats[f'MDF_ch{ch_num}'] = 0.0
+            feats[f'MNF_ch{ch_num}'] = 0.0
+            # feats[f'PKF_ch{ch_num}'] = 0.0
+            # feats[f'MNP_ch{ch_num}'] = 0.0
+            # feats[f'TTP_ch{ch_num}'] = 0.0
+            continue
 
         # MDF — median frequency
         cumsum  = np.cumsum(pb)
@@ -352,6 +439,19 @@ def extract_features(event_data, channels):
 
         # MNF — mean frequency
         feats[f'MNF_ch{ch_num}'] = float(np.sum(fb * pb) / np.sum(pb))
+
+
+
+
+        # PKF — Peak Frequency
+        # feats[f'PKF_ch{ch_num}'] = float(
+        #     fb[np.argmax(pb)])
+
+        # MNP — Mean Power
+        # feats[f'MNP_ch{ch_num}'] = float(np.mean(pb))
+
+        # TTP — Total Power
+        # feats[f'TTP_ch{ch_num}'] = float(np.sum(pb))
 
     return feats
 
@@ -382,6 +482,8 @@ def process_file_A(filepath, subject_id):
     all_feats = []
     for g_idx, (t_start, t_end) in enumerate(boundaries):
         gesture_id = g_idx + 1
+        if gesture_id == 6:      # ← yeh add karo
+           continue      
         events     = detect_events(sig_mat[:, 0], t_start, t_end, gesture_id)
 
         for rep_num, (ev_s, ev_e) in enumerate(events, start=1):
