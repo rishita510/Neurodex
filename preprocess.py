@@ -46,17 +46,17 @@ FORMAT = "A"   # "A" or "B"
 # filename → subject_id
 # Add all your files here!
 FILES_FORMAT_A = {
-    "data6.csv"  : 1,   # subject 1 — all 6 gestures
-    "data1.csv": 2,   # subject 2 — all 6 gestures (add when ready)
-     "data2.csv": 3,   # subject 3
-     "data3.csv": 4,
-    "data4.csv": 5,
-    "data5.csv":6,
-    "data7.csv":7,
-    "data8.csv":8,
-    "data10.csv":10,
-    "data11.csv":11,
-    "data12.csv":12,
+    "newtry_jivitesh.csv"  : 1,   # subject 1 — all 6 gestures
+    "newtry_jivitesh2.csv": 2,   # subject 2 — all 6 gestures (add when ready)
+     "newtry_jivitesh3.csv": 3,   # subject 3
+     "newtry_jivitesh4.csv": 4,
+    "newtry_jivitesh5.csv": 5,
+    "newtry_jivitesh6.csv":6,
+    "newtry_jivitesh7.csv":7,
+    "newtry_jivitesh8.csv":8,
+    "newtry_jivitesh9.csv":10,
+    "newtry_jivitesh10.csv":11,
+    
     # "rishita_data1.csv":13,
     # "saipriya_data1.csv":14,
     # "rishita_data2.csv":15,
@@ -134,94 +134,94 @@ GESTURE_BOUNDARIES = {
     # (480,  570),   # Gesture 5
     # (600,  690),   # Gesture 6
     # ],
-    1: [
-     (0,    65),    # Gesture 1
-     (89,  152),   # Gesture 2
-     (177,  236),   # Gesture 3
-     (266,  326),   # Gesture 4
-     (356,  416),   # Gesture 5
-     (439,  510),   # Gesture 6
-     ],
-     2: [              # data1.csv = subject 2
-    (0,60),   # Gesture 1
-    (90,150),  # Gesture 2
-    (190,245),  # Gesture 3
-    (250,315),  # Gesture 4
-    (336,400),  # Gesture 5
-    (426, 480 ),  # Gesture 6
-],
-     3: [
-     (0,    60),    # Gesture 1
-     (90,  150),   # Gesture 2
-     (177,  233),   # Gesture 3
-     (257,  323),   # Gesture 4
-     (350,  413),   # Gesture 5
-     (440,  500),   # Gesture 6
-     ],
-     4: [
-     (0,    62),    # Gesture 1
-     (90,  150),   # Gesture 2
-     (181,  243),   # Gesture 3
-     (262,  325),   # Gesture 4
-     (351,  412),   # Gesture 5
-     (440,  510),   # Gesture 6
-     ],
-     5: [
-     (0,    60),    # Gesture 1
-     (90,  153),   # Gesture 2
-     (178,  240),   # Gesture 3
-     (270,  330),   # Gesture 4
-     (360,  435),   # Gesture 5
-     (445,  510),   # Gesture 6
-     ],
-     6: [
-     (0,   63),    # Gesture 1
-     (90,  150),   # Gesture 2
-     (180,  240),   # Gesture 3
-     (265,  329),   # Gesture 4
-     (360,  420),   # Gesture 5
-     (450,  510),   # Gesture 6
-     ],
-     7: [
-     (0,    50),    # Gesture 1
-     (75,  130),   # Gesture 2
-     (159,  206),   # Gesture 3
-     (229,  284),   # Gesture 4
-     (313,  370),   # Gesture 5
-     (400,  460),   # Gesture 6
-     ],
-     8: [
-     (0,    55),    # Gesture 1
-     (85,  143),   # Gesture 2
-     (170,  230),   # Gesture 3
-     (252,  310),   # Gesture 4
-     (336,  390),   # Gesture 5
-     (415,  475),   # Gesture 6
-     ],
-   10: [
-     (0,    60),    # Gesture 1
-     (86,  147),   # Gesture 2
-     (176,  235),   # Gesture 3
-     (264,  320),   # Gesture 4
-     (347,  410),   # Gesture 5
-     (434,  494),   # Gesture 6
-     ],
-     11: [
-     (0,    60),    # Gesture 1
-     (86,  144),   # Gesture 2
-     (170,  230),   # Gesture 3
-     (258,  320),   # Gesture 4
-     (345,  402),   # Gesture 5
-     (429,  490),   # Gesture 6
-     ],
-     12: [
-     (0,    45),    # Gesture 1
-     (66,  110),   # Gesture 2
-     (130,  179),   # Gesture 3
-     (204,  260),   # Gesture 4
-     (288,  346),   # Gesture 5
-     (374,  432),   # Gesture 6
-     ],
+#     1: [
+#      (0,    65),    # Gesture 1
+#      (89,  152),   # Gesture 2
+#      (177,  236),   # Gesture 3
+#      (266,  326),   # Gesture 4
+#      (356,  416),   # Gesture 5
+#      (439,  510),   # Gesture 6
+#      ],
+#      2: [              # data1.csv = subject 2
+#     (0,60),   # Gesture 1
+#     (90,150),  # Gesture 2
+#     (190,245),  # Gesture 3
+#     (250,315),  # Gesture 4
+#     (336,400),  # Gesture 5
+#     (426, 480 ),  # Gesture 6
+# ],
+#      3: [
+#      (0,    60),    # Gesture 1
+#      (90,  150),   # Gesture 2
+#      (177,  233),   # Gesture 3
+#      (257,  323),   # Gesture 4
+#      (350,  413),   # Gesture 5
+#      (440,  500),   # Gesture 6
+#      ],
+#      4: [
+#      (0,    62),    # Gesture 1
+#      (90,  150),   # Gesture 2
+#      (181,  243),   # Gesture 3
+#      (262,  325),   # Gesture 4
+#      (351,  412),   # Gesture 5
+#      (440,  510),   # Gesture 6
+#      ],
+#      5: [
+#      (0,    60),    # Gesture 1
+#      (90,  153),   # Gesture 2
+#      (178,  240),   # Gesture 3
+#      (270,  330),   # Gesture 4
+#      (360,  435),   # Gesture 5
+#      (445,  510),   # Gesture 6
+#      ],
+#      6: [
+#      (0,   63),    # Gesture 1
+#      (90,  150),   # Gesture 2
+#      (180,  240),   # Gesture 3
+#      (265,  329),   # Gesture 4
+#      (360,  420),   # Gesture 5
+#      (450,  510),   # Gesture 6
+#      ],
+#      7: [
+#      (0,    50),    # Gesture 1
+#      (75,  130),   # Gesture 2
+#      (159,  206),   # Gesture 3
+#      (229,  284),   # Gesture 4
+#      (313,  370),   # Gesture 5
+#      (400,  460),   # Gesture 6
+#      ],
+#      8: [
+#      (0,    55),    # Gesture 1
+#      (85,  143),   # Gesture 2
+#      (170,  230),   # Gesture 3
+#      (252,  310),   # Gesture 4
+#      (336,  390),   # Gesture 5
+#      (415,  475),   # Gesture 6
+#      ],
+#    10: [
+#      (0,    60),    # Gesture 1
+#      (86,  147),   # Gesture 2
+#      (176,  235),   # Gesture 3
+#      (264,  320),   # Gesture 4
+#      (347,  410),   # Gesture 5
+#      (434,  494),   # Gesture 6
+#      ],
+#      11: [
+#      (0,    60),    # Gesture 1
+#      (86,  144),   # Gesture 2
+#      (170,  230),   # Gesture 3
+#      (258,  320),   # Gesture 4
+#      (345,  402),   # Gesture 5
+#      (429,  490),   # Gesture 6
+#      ],
+#      12: [
+#      (0,    45),    # Gesture 1
+#      (66,  110),   # Gesture 2
+#      (130,  179),   # Gesture 3
+#      (204,  260),   # Gesture 4
+#      (288,  346),   # Gesture 5
+#      (374,  432),   # Gesture 6
+#      ],
 #      13: [
 #          (0,62),
 #          (88,149),
@@ -271,6 +271,86 @@ GESTURE_BOUNDARIES = {
 #         (360,420),
 #         (450,505)
 #     ]
+   1:[
+       (0,58.6),
+       (84,141),
+       (170,226),
+       (257,316),
+       (340,401),
+       (428,485)
+   ],
+   2:[
+       (0,58.8),
+       (89,145),
+       (172,235),
+       (263,322),
+       (347,410),
+       (435,493)
+   ],
+   3:[
+      (0,66.3),
+      (86,143),
+      (170,237),
+      (260,314),
+      (340,403),
+      (425,480) 
+   ],
+   4:[
+       (0,62),
+       (87,148),
+       (175,241),
+       (260,320),
+       (360,420),
+       (440,495)
+   ],
+   5:[
+      (0,63),
+      (83,144),
+      (173,233),
+      (262,320),
+      (348,408),
+      (438,500), 
+   ],
+  6:[
+      (0,62.7),
+      (89.9,149),
+      (172,233),
+      (263,323),
+      (349,408),
+      (433,490)
+  ],
+  7:[
+      (0,61.8),
+      (87,145),
+      (175,235),
+      (262,323),
+      (350,410),
+      (441,500)
+  ],
+  8:[
+      (0,61.6),
+      (89,149),
+      (174,235),
+      (263,323),
+      (353,410),
+      (440,500)
+  ],
+  9:[
+     (0,62),
+     (88.9,150),
+     (182,236),
+     (265,317),
+     (350,410),
+     (441,500) 
+  ],
+  10:[
+      (0,61),
+      (87,143),
+      (171,232),
+      (259,318),
+      (345,407),
+      (434,490)
+  ]
 
 }
 
