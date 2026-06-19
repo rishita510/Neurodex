@@ -514,7 +514,7 @@ def main():
         help='Path to Chords Web CSV file (Counter + Channel1–Channel6)')
     args = parser.parse_args()
 
-    csv_path = "ring_unnati.csv"
+    csv_path = "jivitesh_middle.csv"
     if csv_path is None:
         csv_path = input("📂 Enter path to CSV file: ").strip().strip('"').strip("'")
 
