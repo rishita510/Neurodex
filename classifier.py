@@ -42,7 +42,8 @@ os.makedirs('outputs/roc_curves',         exist_ok=True)
 
 GESTURE_NAMES = {
     1:'Thumb', 2:'Index', 3:'Middle',
-    4:'Ring',  5:'Little', 6:'Fist'
+    4:'Ring',  5:'Little'
+    # , 6:'Fist'
 }
 MAX_REPS = 20   # cap at 20 per gesture per subject (paper protocol)
 
@@ -62,28 +63,33 @@ def load_data(path="outputs/features_all_subjects.csv"):
           .apply(lambda x: x.nsmallest(MAX_REPS, 'rep_num'))
           .reset_index(drop=True)
     )
-
+    df = df[df['gesture_id'] != 6]
     # Features selected after correlation analysis
-    selected_features = [
-        'VAR_ch1',
-        'WL_ch1',
-        'VAR_ch2',
-        'WL_ch2',
-        'MNF_ch2',
-        'VAR_ch3',
-        'WL_ch3',
-        'MNF_ch3',
-        'VAR_ch4',
-        'WL_ch4',
-        'MNF_ch4'
-    ]
-
-    X = df[selected_features].values.astype(np.float32)
-    y = df['gesture_id'].values -1
+    # selected_features = [
+    #     'VAR_ch1',
+    #     'WL_ch1',
+    #     'VAR_ch2',
+    #     'WL_ch2',
+    #     'MNF_ch2',
+    #     'VAR_ch3',
+    #     'WL_ch3',
+    #     'MNF_ch3',
+    #     'VAR_ch4',
+    #     'WL_ch4',
+    #     'MNF_ch4'
+    # ]
+    MIN_PER_CLASS = df.groupby('gesture_id')['rep_num'].count().min()
+    print(f"Balancing to {MIN_PER_CLASS} events per gesture")
+    df = (df.groupby('gesture_id')
+        .apply(lambda x: x.sample(MIN_PER_CLASS, random_state=42))
+        .reset_index(drop=True))
+    meta = ['subject_id', 'gesture_id', 'gesture_name', 'rep_num']
+    X = df.drop(columns=meta).values.astype(np.float32)
+    y = df['gesture_id'].values-1
 
     print(f"\nDataset Loaded: {X.shape[0]} samples × {X.shape[1]} features")
     print("\nSelected Features:")
-    print(selected_features)
+    # print(selected_features)
     print(f"\nClasses: {np.unique(y)}")
 
     return X, y,df
@@ -97,7 +103,7 @@ def get_classifiers():
         'SVM1_Linear':         SVC(kernel='linear',  C=1,    decision_function_shape='ovo', probability=True, random_state=42),
         'SVM2_Quadratic':      SVC(kernel='poly',    degree=2, C=1, decision_function_shape='ovo', probability=True, random_state=42),
         'SVM3_Cubic':          SVC(kernel='poly',    degree=3, C=1, decision_function_shape='ovo', probability=True, random_state=42),
-        'SVM4_FineGaussian':   SVC(kernel='rbf',     gamma='scale', C=1,   decision_function_shape='ovo', probability=True, random_state=42),
+        'SVM4_FineGaussian':   SVC(kernel='rbf',     gamma='scale', C=1, class_weight='balanced',decision_function_shape='ovo', probability=True, random_state=42),
         'SVM5_MedGaussian':    SVC(kernel='rbf',     gamma='auto',  C=1,   decision_function_shape='ovo', probability=True, random_state=42),
 
         # ── ANN (4 configs) ────────────────────────────────
@@ -106,7 +112,7 @@ def get_classifiers():
         # ANN2: 2 hidden layers (15,8), log-sigmoid → logistic
         'ANN2_15x8_logistic':  MLPClassifier(hidden_layer_sizes=(15, 8), activation='logistic',max_iter=1000, random_state=42),
         # ANN3: 2 hidden layers (15,8), tan-sigmoid
-        'ANN3_15x8_tanh':      MLPClassifier(hidden_layer_sizes=(15, 8), activation='tanh',    max_iter=1000, random_state=42),
+        'ANN3_15x8_tanh':      MLPClassifier(hidden_layer_sizes=(15, 8), activation='tanh',    max_iter=4000, random_state=42),
         # ANN4: 2 hidden layers (15,8), tan-sigmoid + logistic output
         'ANN4_15x8_mixed':     MLPClassifier(hidden_layer_sizes=(15, 8), activation='tanh',    max_iter=1000, random_state=42, solver='lbfgs'),
 
@@ -120,6 +126,7 @@ def get_classifiers():
         'RF_100':
             RandomForestClassifier(
                 n_estimators=100,
+                class_weight='balanced',
                 random_state=412
             ),
 
@@ -162,7 +169,7 @@ def get_classifiers():
                 max_depth=4,
                 learning_rate=0.1,
                 objective='multi:softmax',
-                num_class=6,
+                num_class=5,
                 random_state=42,
                 eval_metric='mlogloss'
             ),
@@ -173,7 +180,7 @@ def get_classifiers():
                 max_depth=6,
                 learning_rate=0.05,
                 objective='multi:softmax',
-                num_class=6,
+                num_class=5,
                 random_state=42,
                 eval_metric='mlogloss'
             ),
@@ -204,7 +211,7 @@ def plot_confusion_matrix(cm, name, classes):
 # ════════════════════════════════════════════════════════
 # ROC CURVE PLOT (per gesture, paper Fig. 4 style)
 # ════════════════════════════════════════════════════════
-def plot_roc(clf, X_test, y_test, name, n_classes=6):
+def plot_roc(clf, X_test, y_test, name, n_classes=5):
     y_bin  = label_binarize(y_test, classes=list(range(1, n_classes+1)))
     y_prob = clf.predict_proba(X_test)
 
@@ -266,7 +273,7 @@ def evaluate_all(X, y):
 
         # Confusion matrix
         cm = confusion_matrix(y_te, clf.predict(X_te_s))
-        plot_confusion_matrix(cm, name, [GESTURE_NAMES[i] for i in range(1,7)])
+        plot_confusion_matrix(cm, name, [GESTURE_NAMES[i] for i in range(1,6)])
 
         # ROC curves
         try:
@@ -319,4 +326,15 @@ if __name__ == "__main__":
     best_clf = classifiers[best_name]
     best_clf.fit(X_tr, y_tr)
     print(classification_report(y_te, best_clf.predict(X_te),
-          target_names=[GESTURE_NAMES[i] for i in range(1,7)]))
+          target_names=[GESTURE_NAMES[i] for i in range(1,6)]))
+    
+
+
+    import joblib
+scaler_rt = StandardScaler()
+X_s = scaler_rt.fit_transform(X)
+X_tr, X_te, y_tr, y_te = train_test_split(X_s, y, test_size=0.3, random_state=42, stratify=y)
+best_clf = get_classifiers()[results.iloc[0]['classifier']]
+best_clf.fit(X_tr, y_tr)
+joblib.dump(best_clf, 'best_model.pkl')
+joblib.dump(scaler_rt,'scaler.pkl')
