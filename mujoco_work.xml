@@ -1,0 +1,289 @@
+<mujoco model="base_part">
+
+    <compiler angle="degree"/>
+    <option timestep="0.002" gravity="0 0 0"/>
+
+    <visual>
+        <headlight ambient="1 1 1"/>
+    </visual>
+
+    <asset>
+        <mesh name="base1_mesh" file="BASEpart1.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="base2_mesh" file="BASEpart2.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="middle_mesh" file="MIDDLE11.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="mcp_mesh" file="MCP.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="pip_mesh" file="PIP.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="dip_mesh" file="DIP.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="thumb_mesh" file="THUMBWITHJOINTPART.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="index_mesh" file="INDEX11.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="ring_mesh" file="RING11.STL" scale="0.001 0.001 0.001"/>
+        <mesh name="pinky_mesh" file="PINKY11.STL" scale="0.001 0.001 0.001"/>
+    </asset>
+
+    <worldbody>
+
+        <geom name="ground" type="plane" pos="0 0 0" size="2 2 0.1" rgba="0.5 0.5 0.5 1"/>
+
+        <body name="base1" pos="0 0 0" euler="90 180 0">
+            <geom type="mesh" mesh="base1_mesh" rgba="0.45 0.25 0.25 1"/>
+        </body>
+
+        <body name="base2" pos="0.001 0 0" euler="90 180 0">
+            <geom type="mesh" mesh="base2_mesh" rgba="0.75 0.75 0.75 1"/>
+        </body>
+
+        <body name="middle_fixed" pos="0.0030 0.008 0.03" euler="90 180 0">
+            <geom type="mesh" mesh="middle_mesh" rgba="0.4 0.3 0.5 1"/>
+
+            <body name="mcp_link" pos="0.02725 0.089996 0.00980">
+                <joint name="mcp_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.4" stiffness="0.0"/>
+                <geom name="mcp_geom" type="mesh" mesh="mcp_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.9 0.6 0.1 1"/>
+
+                <body name="pip_link" pos="0.00012 0.032004 0.000466">
+                    <joint name="pip_flex" type="hinge" axis="-1 0 0" range="0 100" damping="0.3" stiffness="0.0"/>
+                    <geom name="pip_geom" type="mesh" mesh="pip_mesh" pos="-0.01387 -0.00700 -0.020266" rgba="0.2 0.7 0.9 1"/>
+
+                    <body name="dip_link" pos="-0.00112 0.025996 -0.001316">
+                        <joint name="dip_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.2" stiffness="0.0"/>
+                        <geom name="dip_geom" type="mesh" mesh="dip_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.2 0.4 0.9 1"/>
+                    </body>
+                </body>
+            </body>
+        </body>
+        <body name="index_fixed" pos="0.012 0.00750 0.048" euler="90 180 0">
+            <geom type="mesh" mesh="index_mesh" rgba="0.3 0.7 0.3 1"/>
+
+            <body name="index_mcp_link" pos="0.011 0.065 0.009">
+                <joint name="index_mcp_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.4" stiffness="0.0"/>
+                <geom name="index_mcp_geom" type="mesh" mesh="mcp_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.9 0.6 0.1 1"/>
+
+                <body name="index_pip_link" pos="0 0.0315 0.0001">
+                    <joint name="index_pip_flex" type="hinge" axis="-1 0 0" range="0 100" damping="0.3" stiffness="0.0"/>
+                    <geom name="index_pip_geom" type="mesh" mesh="pip_mesh" pos="-0.01387 -0.00700 -0.020266" rgba="0.2 0.7 0.9 1"/>
+
+                    <body name="index_dip_link" pos="0 0.0235 -0.0001">
+                        <joint name="index_dip_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.2" stiffness="0.0"/>
+                        <geom name="index_dip_geom" type="mesh" mesh="dip_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.2 0.4 0.9 1"/>
+                    </body>
+                </body>
+            </body>
+        </body>
+
+        <body name="ring_fixed" pos="-0.036 0.005 0.0295" euler="90 180 0">
+            <geom type="mesh" mesh="ring_mesh" rgba="0.3 0.5 0.6 1"/>
+
+        <body name="ring_mcp_link" pos="0.015 0.0855 0.00900">
+        <joint name="ring_mcp_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.4" stiffness="0.0"/>
+        <geom name="ring_mcp_geom" type="mesh" mesh="mcp_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.9 0.6 0.1 1"/>
+
+        <body name="ring_pip_link" pos="0 0.032 0">
+            <joint name="ring_pip_flex" type="hinge" axis="-1 0 0" range="0 100" damping="0.3" stiffness="0.0"/>
+            <geom name="ring_pip_geom" type="mesh" mesh="pip_mesh" pos="-0.01387 -0.00700 -0.020266" rgba="0.2 0.7 0.9 1"/>
+
+            <body name="ring_dip_link" pos="0 0.0236 -0.0001">
+                <joint name="ring_dip_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.2" stiffness="0.0"/>
+                <geom name="ring_dip_geom" type="mesh" mesh="dip_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.2 0.4 0.9 1"/>    
+            </body>
+        </body>
+    </body>
+        </body>
+
+<!--pinky fingerrrr -->
+        <body name="pinky_fixed" pos="-0.065 0.0067 0.030" euler="90 180 0">
+            <geom type="mesh" mesh="pinky_mesh" rgba="0.8 0.2 0.5 1"/>
+
+            <body name="pinky_mcp_link" pos="0.016 0.065 0.009">
+                <joint name="pinky_mcp_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.4" stiffness="0.0"/>
+                <geom name="pinky_mcp_geom" type="mesh" mesh="mcp_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.9 0.6 0.1 1"/>
+
+                <body name="pinky_pip_link" pos="0 0.0315 0.0001">
+                    <joint name="pinky_pip_flex" type="hinge" axis="-1 0 0" range="0 100" damping="0.3" stiffness="0.0"/>
+                    <geom name="pinky_pip_geom" type="mesh" mesh="pip_mesh" pos="-0.01387 -0.00700 -0.020266" rgba="0.2 0.7 0.9 1"/>
+
+                    <body name="pinky_dip_link" pos="0 0.0235 -0.0001">
+                        <joint name="pinky_dip_flex" type="hinge" axis="-1 0 0" range="0 90" damping="0.2" stiffness="0.0"/>
+                        <geom name="pinky_dip_geom" type="mesh" mesh="dip_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.2 0.4 0.9 1"/>
+                    </body> 
+                </body>
+            </body> 
+        </body>
+
+
+        <!-- ✅ Thumb: ball snapped to base socket, tilted 30° from vertical in X-Z plane, "0.00825 0.089996 0.001180"-->
+        <body name="thumb_base"
+              pos="-0.04120 0.0272 0.01997"
+              euler="90 20 -45">
+
+            <!-- Reference marker pos="0.02 0.005 -0.05" -->
+            <geom name="joint_marker"
+                  type="sphere"
+                  size="0.003"
+                  pos="0.03 0.013 0.025"
+                  rgba="1 0 0 1"/>
+
+            <!-- thumb_link's origin = the red marker (CMC ball joint). Mesh is shifted to compensate. -->
+            <body name="thumb_link" pos="0.03 0.013 0.025">
+                <joint name="thumb_cmc" type="ball" limited="true" range="0 60" damping="0.4"/>
+                <geom name="thumb_geom" type="mesh" mesh="thumb_mesh" pos="-0.042 -0.003 -0.005" euler="0 70 0" rgba="0.1 0.3 0.5 1"/>
+
+                <!-- thumb_pip_link's origin = the real distal bore on THUMBWITHJOINTPART.STL,
+                     transformed through thumb_geom's own 70° rotation. euler carries that
+                     rotation forward so the PIP geometry below can reuse its native offsets. -->
+                <body name="thumb_pip_link" pos="-0.004912 0.063204 -0.002941" euler="0 70 0">
+                    <joint name="thumb_pip_flex" type="hinge" axis="-1 0 0" range="0 55" damping="0.3" stiffness="0.0"/>
+                    <geom name="thumb_pip_geom" type="mesh" mesh="pip_mesh" pos="-0.01387 -0.00700 -0.020266" rgba="0.2 0.7 0.9 1" contype="0" conaffinity="0"/>
+                    
+                    <body name="thumb_dip_link" pos="-0.00112 0.025996 -0.001316">
+                        <joint name="thumb_dip_flex" type="hinge" axis="-1 0 0" range="0 45" damping="0.2" stiffness="0.0"/>
+                        <geom name="thumb_dip_geom" type="mesh" mesh="dip_mesh" pos="-0.00875 -0.032996 -0.00885" rgba="0.2 0.4 0.9 1"/>
+                    </body>
+                </body>
+            </body>
+        </body>
+        
+
+    </worldbody>
+    <contact>
+    <exclude body1="middle_fixed" body2="mcp_link"/>
+    <exclude body1="mcp_link"     body2="pip_link"/>
+    <exclude body1="pip_link"     body2="dip_link"/>
+    <exclude body1="middle_fixed" body2="pip_link"/>
+    <exclude body1="middle_fixed" body2="dip_link"/>
+    <exclude body1="mcp_link"     body2="dip_link"/>
+
+    <exclude body1="index_fixed"     body2="index_mcp_link"/>
+    <exclude body1="index_fixed"     body2="index_pip_link"/>
+    <exclude body1="index_fixed"     body2="index_dip_link"/>
+    <exclude body1="index_mcp_link"  body2="index_pip_link"/>
+    <exclude body1="index_mcp_link"  body2="index_dip_link"/>
+    <exclude body1="index_pip_link"  body2="index_dip_link"/>
+
+
+    <exclude body1="thumb_base"     body2="thumb_link"/>
+    <exclude body1="thumb_link"     body2="thumb_pip_link"/>
+    <exclude body1="thumb_pip_link" body2="thumb_dip_link"/>
+    <exclude body1="thumb_link"     body2="thumb_dip_link"/>
+    <!-- thumb chain vs the base plate it's mounted near -->
+    <exclude body1="base1" body2="thumb_base"/>
+    <exclude body1="base1" body2="thumb_link"/>
+    <exclude body1="base1" body2="thumb_pip_link"/>
+    <exclude body1="base1" body2="thumb_dip_link"/>
+    <exclude body1="base2" body2="thumb_base"/>
+    <exclude body1="base2" body2="thumb_link"/>
+    <exclude body1="base2" body2="thumb_pip_link"/>
+    <exclude body1="base2" body2="thumb_dip_link"/>
+
+    <!-- index chain vs the base plate -->
+    <exclude body1="base1" body2="index_fixed"/>
+    <exclude body1="base2" body2="index_fixed"/>
+   
+
+    <!-- thumb chain vs the rest of the hand, for safety -->
+    <exclude body1="middle_fixed" body2="thumb_base"/>
+    <exclude body1="index_fixed" body2="thumb_link"/>
+    <exclude body1="index_fixed" body2="thumb_pip_link"/>
+    <exclude body1="index_fixed" body2="thumb_dip_link"/>
+
+    <exclude body1="middle_fixed" body2="thumb_link"/>
+    <exclude body1="middle_fixed" body2="thumb_pip_link"/>
+    <exclude body1="middle_fixed" body2="thumb_dip_link"/>
+    <exclude body1="mcp_link" body2="thumb_link"/>
+    <exclude body1="mcp_link" body2="thumb_pip_link"/>
+    <exclude body1="mcp_link" body2="thumb_dip_link"/>
+
+    <!-- index chain vs thumb chain (adjacent fingers, likely to brush/overlap) -->
+    <exclude body1="index_fixed"     body2="thumb_base"/>
+    <exclude body1="index_fixed"     body2="thumb_link"/>
+    <exclude body1="index_fixed"     body2="thumb_pip_link"/>
+    <exclude body1="index_fixed"     body2="thumb_dip_link"/>
+
+    <!-- index chain vs middle chain (adjacent fingers) -->
+    <exclude body1="index_fixed"     body2="middle_fixed"/>
+    <exclude body1="index_fixed"     body2="mcp_link"/>
+
+    <exclude body1="ring_fixed"     body2="ring_mcp_link"/>
+<exclude body1="ring_fixed"     body2="ring_pip_link"/>
+<exclude body1="ring_fixed"     body2="ring_dip_link"/>
+<exclude body1="ring_mcp_link"  body2="ring_pip_link"/>
+<exclude body1="ring_mcp_link"  body2="ring_dip_link"/>
+<exclude body1="ring_pip_link"  body2="ring_dip_link"/>
+
+<exclude body1="base1" body2="ring_fixed"/>
+<exclude body1="base2" body2="ring_fixed"/>
+
+<!-- ring vs middle (adjacent fingers) -->
+<exclude body1="ring_fixed" body2="middle_fixed"/>
+<exclude body1="ring_fixed" body2="mcp_link"/>
+
+<!-- ring vs index, just in case they overlap across the hand -->
+<exclude body1="ring_fixed" body2="index_fixed"/>
+<exclude body1="ring_fixed" body2="index_mcp_link"/>
+
+<!-- ring vs thumb -->
+<exclude body1="ring_fixed" body2="thumb_base"/>
+<exclude body1="ring_fixed" body2="thumb_link"/>
+<exclude body1="ring_fixed" body2="thumb_pip_link"/>
+<exclude body1="ring_fixed" body2="thumb_dip_link"/>
+
+<exclude body1="pinky_fixed"     body2="pinky_mcp_link"/>
+<exclude body1="pinky_fixed"     body2="pinky_pip_link"/>
+<exclude body1="pinky_fixed"     body2="pinky_dip_link"/>
+<exclude body1="pinky_mcp_link"  body2="pinky_pip_link"/>
+<exclude body1="pinky_mcp_link"  body2="pinky_dip_link"/>
+<exclude body1="pinky_pip_link"  body2="pinky_dip_link"/>
+
+<exclude body1="base1" body2="pinky_fixed"/>
+<exclude body1="base2" body2="pinky_fixed"/>
+
+<!-- pinky vs ring (adjacent fingers) -->
+<exclude body1="pinky_fixed" body2="ring_fixed"/>
+<exclude body1="pinky_fixed" body2="ring_mcp_link"/>
+
+<!-- pinky vs the rest of the hand, for safety -->
+<exclude body1="pinky_fixed" body2="middle_fixed"/>
+<exclude body1="pinky_fixed" body2="mcp_link"/>
+<exclude body1="pinky_fixed" body2="index_fixed"/>
+<exclude body1="pinky_fixed" body2="index_mcp_link"/>
+
+<!-- pinky vs thumb (likely closest pair, given the x-position overlap) -->
+<exclude body1="pinky_fixed" body2="thumb_base"/>
+<exclude body1="pinky_fixed" body2="thumb_link"/>
+<exclude body1="pinky_fixed" body2="thumb_pip_link"/>
+<exclude body1="pinky_fixed" body2="thumb_dip_link"/>
+</contact>
+
+    <actuator>
+        <position name="act_mcp_flex" joint="mcp_flex" kp="8.0" ctrlrange="0 90"/>
+        <position name="act_pip_flex" joint="pip_flex" kp="8.0" ctrlrange="0 100"/>
+        <position name="act_dip_flex" joint="dip_flex" kp="8.0" ctrlrange="0 90"/>
+
+        <position name="act_index_mcp_flex" joint="index_mcp_flex" kp="8.0" ctrlrange="0 90"/>
+        <position name="act_index_pip_flex" joint="index_pip_flex" kp="8.0" ctrlrange="0 100"/>
+        <position name="act_index_dip_flex" joint="index_dip_flex" kp="8.0" ctrlrange="0 90"/>
+
+        <position name="act_thumb_pip_flex" joint="thumb_pip_flex" kp="8.0" ctrlrange="0 80"/>
+        <position name="act_thumb_dip_flex" joint="thumb_dip_flex" kp="8.0" ctrlrange="0 70"/>
+
+        <position name="act_ring_mcp_flex" joint="ring_mcp_flex" kp="8.0" ctrlrange="0 90"/>
+        <position name="act_ring_pip_flex" joint="ring_pip_flex" kp="8.0" ctrlrange="0 100"/>
+        <position name="act_ring_dip_flex" joint="ring_dip_flex" kp="8.0" ctrlrange="0 90"/>
+
+        <position name="act_pinky_mcp_flex" joint="pinky_mcp_flex" kp="8.0" ctrlrange="0 90"/>
+        <position name="act_pinky_pip_flex" joint="pinky_pip_flex" kp="8.0" ctrlrange="0 100"/>
+        <position name="act_pinky_dip_flex" joint="pinky_dip_flex" kp="8.0" ctrlrange="0 90"/>
+
+        <!-- ✅ Ball-joint (thumb_cmc) actuation only.
+             <position>/<velocity> actuators can't attach to a ball joint
+             (it has 4 qpos values = a quaternion, not 1 scalar), so we use
+             three torque <motor> actuators instead, one per local rotation
+             axis (x, y, z) of the joint frame. These are driven with a
+             small PD loop written in Python (see newme.py) rather than
+             MuJoCo's built-in position servo, since that servo machinery
+             only exists for scalar joints. -->
+        <motor name="act_thumb_cmc_x" joint="thumb_cmc" gear="1 0 0 0 0 0" ctrlrange="-2 2"/>
+        <motor name="act_thumb_cmc_y" joint="thumb_cmc" gear="0 1 0 0 0 0" ctrlrange="-2 2"/>
+        <motor name="act_thumb_cmc_z" joint="thumb_cmc" gear="0 0 1 0 0 0" ctrlrange="-2 2"/>
+        
+    </actuator>
+
+</mujoco>
